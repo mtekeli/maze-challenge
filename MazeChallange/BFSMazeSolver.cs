@@ -46,18 +46,12 @@ namespace MazeChallange
             while (frontierQueue.Count > 0)
             {
                 BFSNode curBFSNode = frontierQueue.Dequeue();
-                //if (curBFSNode.Y == 3 && curBFSNode.X == 4)
-                //{
-                //    Console.WriteLine();
-                //}
-                foreach (BFSNode n in frontierQueue)
-                    Console.Write(String.Format("({0},{1}) ", n.RowIndex+1, n.ColumnIndex+1));
-                Console.WriteLine();
+               
+                //foreach (BFSNode n in frontierQueue)
+                //    Console.Write(String.Format("({0},{1}) ", n.RowIndex+1, n.ColumnIndex+1));
+                //Console.WriteLine();
                 ICell curMazeNode = GetMazeNode(maze, curBFSNode);
-                //if (curMazeNode.Y == 3 && curMazeNode.X == 4)
-                //{
-                //    Console.WriteLine();
-                //}
+
                 if (maze.IsGoal(curMazeNode))//Uses the goal defined by the IWalledMaze as terminating point.
                 {
                     IEnumerable<ICell> solvedPath = TraceSolvedPath(maze, curBFSNode);

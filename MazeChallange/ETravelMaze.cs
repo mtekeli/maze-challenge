@@ -100,6 +100,10 @@ namespace MazeChallange
                     }
                 }
             }
+            if (_start == null)
+                throw new InvalidDataException("Check your maze data! Maze must have a starting point!");
+            if (_goal == null)
+                throw new InvalidDataException("Check your maze data! Maze must have a goal point!");
             _columns = colCount;
             _rows = rows.Length;
             Console.WriteLine("Maze read successfully...");
