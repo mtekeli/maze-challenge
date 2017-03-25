@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{E4643AB5-4F68-4341-8605-430DC5B410FB}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>MazeChallange</RootNamespace>
-    <AssemblyName>MazeChallange</AssemblyName>
+    <RootNamespace>MazeChallenge</RootNamespace>
+    <AssemblyName>MazeChallenge</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
