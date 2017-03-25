@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-    class Cell : ICell
+    public class Cell : ICell
     {
         protected bool _isOccupied = false;
         int _columnIndex = 0; // col index

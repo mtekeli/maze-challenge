@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-    abstract class Maze : IMaze
-    {
+    public abstract class Maze : IMaze
+    { 
         public abstract int Columns { get; }
         public abstract int Rows { get; }
 

@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-
-    class BFSMazeSolver : IMazeSolver
+    public class BFSMazeSolver : IMazeSolver
     {
         enum BFSNodeState
         {

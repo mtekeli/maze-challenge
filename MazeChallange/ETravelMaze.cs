@@ -7,8 +7,15 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-    class ETravelMaze : Maze
+    public class ETravelMaze : Maze
     {
+        public const string MazeRowsLessThanTwoMessage = "Check your maze data! Rows can not be less than two!";
+        public const string MazeRowsMustHaveSameNumberOfCellsMessage = "Check your maze data! Each row must have same number of cells!";
+        public const string MazeCanOnlyHaveOneStartPointMessage = "Check your maze data! Maze can only have one start point!";
+        public const string MazeCanOnlyHaveOneGoalMessage = "Check your maze data! Maze can only have one goal point!";
+        public const string MazeInputNotValidMessage = "Check your maze data! Invalid input!";
+        public const string MazeMustHaveStartPointMessage = "Check your maze data! Maze must have a starting point!";
+        public const string MazeMustHaveGoalMessage = "Check your maze data! Maze must have a goal point!";
 
         public ETravelMaze(string mazeFilePath)
         {
@@ -55,7 +62,7 @@ namespace MazeChallange
             string[] rows = line.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
 
             if (rows.Length < 2)
-                throw new InvalidDataException("Check your maze data! Rows can not be less than two!");
+                throw new InvalidDataException(MazeRowsLessThanTwoMessage);
 
             int colCount = rows[0].Length;
 
@@ -66,7 +73,7 @@ namespace MazeChallange
                 string row = rows[i];
 
                 if (colCount != row.Length)
-                    throw new InvalidDataException("Check your maze data! Each row must have same number of inputs!");
+                    throw new InvalidDataException(MazeRowsMustHaveSameNumberOfCellsMessage);
 
                 colCount = row.Length;
 
@@ -86,24 +93,24 @@ namespace MazeChallange
                             if (_start == null)
                                 _start = _cells[i, j];
                             else
-                                throw new InvalidDataException("Check your maze data! Maze can only have one start point!");
+                                throw new InvalidDataException(MazeCanOnlyHaveOneStartPointMessage);
                             break;
                         case 'G':
                             _cells[i, j] = new Cell(i, j);
                             if (_goal == null)
                                 _goal = _cells[i, j];
                             else
-                                throw new InvalidDataException("Check your maze data! Maze can only have one goal point!");
+                                throw new InvalidDataException(MazeCanOnlyHaveOneGoalMessage);
                             break;
                         default:
-                            throw new InvalidDataException("Check your maze data! Invalid input!");
+                            throw new InvalidDataException(MazeInputNotValidMessage);
                     }
                 }
             }
             if (_start == null)
-                throw new InvalidDataException("Check your maze data! Maze must have a starting point!");
+                throw new InvalidDataException(MazeMustHaveStartPointMessage);
             if (_goal == null)
-                throw new InvalidDataException("Check your maze data! Maze must have a goal point!");
+                throw new InvalidDataException(MazeMustHaveGoalMessage);
             _columns = colCount;
             _rows = rows.Length;
             Console.WriteLine("Maze read successfully...");

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-    interface ICell
+    public interface ICell
     {
         int ColumnIndex { get; } // Column position
         int RowIndex { get; } // Row position

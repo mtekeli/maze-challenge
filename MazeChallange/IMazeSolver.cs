@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MazeChallange
 {
-    interface IMazeSolver
+    public interface IMazeSolver
     {
         void Solve(Maze maze, Action<IEnumerable<ICell>> solvedResultCallback);
     }
