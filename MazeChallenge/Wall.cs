@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace MazeChallange
+namespace MazeChallenge
 {
     class Wall : Cell
     {
-        public Wall(int rowIndex, int columnIndex) : base(rowIndex, columnIndex)
+        public Wall(int rowIndex, int columnIndex) : base(rowIndex, columnIndex) { }
+        public override bool IsOccupied()
         {
-            _isOccupied = true;
+            return true;
         }
     }
 }

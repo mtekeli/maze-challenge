@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace MazeChallange
+namespace MazeChallenge
 {
-    public class ETravelMaze : Maze
+    public sealed class StandardMaze : Maze
     {
         public const string MazeRowsLessThanTwoMessage = "Check your maze data! Rows can not be less than two!";
         public const string MazeRowsMustHaveSameNumberOfCellsMessage = "Check your maze data! Each row must have same number of cells!";
@@ -17,40 +13,20 @@ namespace MazeChallange
         public const string MazeMustHaveStartPointMessage = "Check your maze data! Maze must have a starting point!";
         public const string MazeMustHaveGoalMessage = "Check your maze data! Maze must have a goal point!";
 
-        public ETravelMaze(string mazeFilePath)
+        public StandardMaze(string mazeFilePath)
         {
-            this._mazeFilePath = mazeFilePath;
+            this.MazeFilePath = mazeFilePath;
             InitMaze();
-        }
-
-        public override int Columns
-        {
-            get { return _columns; }
-        }
-
-        public override int Rows
-        {
-            get { return _rows; }
-        }
-
-        public override ICell Start
-        {
-            get { return _start; }
-        }
-
-        public override ICell Goal
-        {
-            get { return _goal; }
         }
 
         public override void InitMaze()
         {
-            if (!File.Exists(_mazeFilePath))
-                throw new FileNotFoundException("File not found!", _mazeFilePath);
+            if (!File.Exists(MazeFilePath))
+                throw new FileNotFoundException("File not found!", MazeFilePath);
 
             String line;
             // Open the text file using a stream reader.
-            using (StreamReader sr = new StreamReader(_mazeFilePath))
+            using (StreamReader sr = new StreamReader(MazeFilePath))
             {
                 // Read the stream to a string, and write the string to the console.
                 line = sr.ReadToEnd();
@@ -66,7 +42,7 @@ namespace MazeChallange
 
             int colCount = rows[0].Length;
 
-            _cells = new Cell[rows.Length, colCount];
+            Cells = new Cell[rows.Length, colCount];
 
             for (int i = 0; i < rows.Length; i++) // iterate over the rows
             {
@@ -83,22 +59,22 @@ namespace MazeChallange
                     switch (c)
                     {
                         case '_':
-                            _cells[i, j] = new Cell(i, j);
+                            Cells[i, j] = new Node(i, j);
                             break;
                         case 'X':
-                            _cells[i, j] = new Wall(i, j);
+                            Cells[i, j] = new Wall(i, j);
                             break;
                         case 'S':
-                            _cells[i, j] = new Cell(i, j);
-                            if (_start == null)
-                                _start = _cells[i, j];
+                            Cells[i, j] = new Node(i, j);
+                            if (Start == null)
+                                Start = Cells[i, j];
                             else
                                 throw new InvalidDataException(MazeCanOnlyHaveOneStartPointMessage);
                             break;
                         case 'G':
-                            _cells[i, j] = new Cell(i, j);
-                            if (_goal == null)
-                                _goal = _cells[i, j];
+                            Cells[i, j] = new Node(i, j);
+                            if (Goal == null)
+                                Goal = Cells[i, j];
                             else
                                 throw new InvalidDataException(MazeCanOnlyHaveOneGoalMessage);
                             break;
@@ -107,12 +83,12 @@ namespace MazeChallange
                     }
                 }
             }
-            if (_start == null)
+            if (Start == null)
                 throw new InvalidDataException(MazeMustHaveStartPointMessage);
-            if (_goal == null)
+            if (Goal == null)
                 throw new InvalidDataException(MazeMustHaveGoalMessage);
-            _columns = colCount;
-            _rows = rows.Length;
+            Columns = colCount;
+            Rows = rows.Length;
             Console.WriteLine("Maze read successfully...");
         }
 

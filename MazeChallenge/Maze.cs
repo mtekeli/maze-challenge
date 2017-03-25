@@ -3,34 +3,31 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MazeChallenge;
 
-namespace MazeChallange
+namespace MazeChallenge
 {
-    public abstract class Maze : IMaze
+    public abstract class Maze
     { 
-        public abstract int Columns { get; }
-        public abstract int Rows { get; }
+        public int Columns { get; protected set; }
+        public int Rows { get; protected set; }
+        public Cell Start { get; protected set; }
+        public Cell Goal { get; protected set; }
 
-        public abstract ICell Start { get; }
+        public abstract void InitMaze();
 
-        public abstract ICell Goal { get; }
+        protected Cell[,] Cells = null;
+        protected string MazeFilePath;
 
-        protected Cell[,] _cells = null;
-        protected int _columns = 0;
-        protected int _rows = 0;
-        protected string _mazeFilePath;
-        protected Cell _start = null;
-        protected Cell _goal = null;
-
-        public IEnumerable<ICell> GetAdjacentCells(ICell currCell)
+        public IEnumerable<Cell> GetAdjacentCells(Cell currCell)
         {
             int rowPosition = currCell.RowIndex;
             int colPosition = currCell.ColumnIndex;
 
             if (rowPosition < 0 || rowPosition >= Rows || colPosition < 0 || colPosition >= Columns) //if given node is out of bounds return a empty list as adjacents.
-                return new List<ICell>(0);
+                return new List<Cell>(0);
 
-            List<ICell> adjacents = new List<ICell>(8);
+            List<Cell> adjacents = new List<Cell>(8);
             for (int i = rowPosition - 1; i <= rowPosition + 1; i++)
             {
                 for (int j = colPosition - 1; j <= colPosition + 1; j++)
@@ -40,35 +37,30 @@ namespace MazeChallange
                     if ((i == rowPosition - 1 && j == colPosition - 1) || (i == rowPosition - 1 && j == colPosition + 1)
                          || (i == rowPosition + 1 && j == colPosition - 1) || (i == rowPosition + 1 && j == colPosition + 1))
                         continue;
-                    adjacents.Add(_cells[i, j]);
+                    adjacents.Add(Cells[i, j]);
                 }
             }
             return adjacents;
         }
 
-        public bool IsGoal(ICell cell)
+        public bool IsGoal(Cell cell)
         {
-            if (cell.RowIndex == 3 && cell.ColumnIndex == 4)
-            {
-                Console.WriteLine("");
-            }
-            return cell != null & cell.Equals(_goal);
+            return cell != null && cell.Equals(Goal);
         }
 
-        public IEnumerator<ICell> GetCells()
+        public IEnumerator<Cell> GetCells()
         {
             for (int i = 0; i < Rows; i++)
                 for (int j = 0; j < Columns; j++)
-                    yield return _cells[i, j];
+                    yield return Cells[i, j];
         }
 
-        public ICell GetCell(int rowIndex, int colIndex)
+        public Cell GetCell(int rowIndex, int colIndex)
         {
-            if (rowIndex < 0 || rowIndex >= _rows || colIndex < 0 || colIndex >= _columns)
+            if (rowIndex < 0 || rowIndex >= Rows || colIndex < 0 || colIndex >= Columns)
                 throw new ArgumentException("Requested cell positon is out of bounds!");
-            return _cells[rowIndex, colIndex];
+            return Cells[rowIndex, colIndex];
         }
 
-        public abstract void InitMaze();
     }
 }

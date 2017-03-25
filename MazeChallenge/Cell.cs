@@ -1,47 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
-namespace MazeChallange
+namespace MazeChallenge
 {
-    public class Cell : ICell
+    public abstract class Cell
     {
-        protected bool _isOccupied = false;
-        int _columnIndex = 0; // col index
-        int _rowIndex = 0; // row index
+        public int RowIndex { get; set; }
+        public int ColumnIndex { get; set; }
 
-        public Cell(int rowIndex, int columnIndex)
+
+        protected Cell(int rowIndex, int columnIndex)
         {
-            this._rowIndex = rowIndex;
-            this._columnIndex = columnIndex;
+            this.RowIndex = rowIndex;
+            this.ColumnIndex = columnIndex;
         }
 
         public override bool Equals(object obj)
         {
             var c = obj as Cell;
-            return c != null && c.ColumnIndex == this._columnIndex && c.RowIndex == this._rowIndex;
+            return c != null && c.ColumnIndex == this.ColumnIndex && c.RowIndex == this.RowIndex;
         }
 
         public override int GetHashCode()
         {
-            return base.GetHashCode();
+            return base.GetHashCode()+1;
         }
 
-        public int ColumnIndex
-        {
-            get { return _columnIndex; }
-        }
-
-        public int RowIndex
-        {
-            get { return _rowIndex; }
-        }
-
-        public bool IsOccupied()
-        {
-            return _isOccupied;
-        }
+        public abstract bool IsOccupied();
     }
 }

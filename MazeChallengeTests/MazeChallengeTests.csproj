@@ -54,7 +54,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MazeChallange\MazeChallenge.csproj">
+    <ProjectReference Include="..\MazeChallenge\MazeChallenge.csproj">
       <Project>{e4643ab5-4f68-4341-8605-430dc5b410fb}</Project>
       <Name>MazeChallenge</Name>
     </ProjectReference>

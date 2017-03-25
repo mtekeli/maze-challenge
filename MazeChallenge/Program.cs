@@ -1,51 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Diagnostics;
+using System.Linq;
 
-namespace MazeChallange
+namespace MazeChallenge
 {
     class Program
     {
-        static Stopwatch swatch = new Stopwatch();
+        static Stopwatch _swatch = new Stopwatch();
+        private static string _algorithmId;
+        private static MazeSolver _mazeSolver;
+
         static void Main(string[] args)
         {
-            if (args.Length != 2)//input from command line
+            if (args.Length != 2) //input from command line
             {
                 Console.WriteLine("Invalid number of arguments");
                 PrintUsage();
                 return;
             }
 
-            string mazePath = args[0];
-            string algorithm = args[1];
-
             try
             {
-                ETravelMaze maze = new ETravelMaze(mazePath);
+                string mazePath = args[0];
+                _algorithmId = args[1];
 
-                IMazeSolver bfsSolver = new BFSMazeSolver();
-                Action<IEnumerable<ICell>> SolvedResultCallback = ShowSolution;
-                /*
-                bfsSolver.Solve(maze, (solvedPath) => //callback defines action to perform after the maze is solved.
-                {
-                    Console.WriteLine();
-                    Console.WriteLine("Completed:");
-                    Console.WriteLine("=========");
-                    if (solvedPath != null)
-                    {
-                        solvedPath = solvedPath.Reverse();
-                        foreach (var cell in solvedPath)
-                        {
-                            Console.Write(String.Format("({0},{1}) ", cell.RowIndex+1, cell.ColumnIndex+1));
-                        }
-                        Console.WriteLine();
-                    }
-                });*/
-                swatch.Start();
-                bfsSolver.Solve(maze, SolvedResultCallback);
+                Maze maze = new StandardMaze(mazePath);
+                var builder = new MazeSolutionBuilder();
+                _mazeSolver = builder.BuildMazeSolver(_algorithmId);
+                Action<IEnumerable<Cell>> solvedResultCallback = ShowSolution;
+
+                _swatch.Start();
+                _mazeSolver.Solve(maze, solvedResultCallback);
             }
             catch (Exception e)
             {
@@ -55,25 +41,26 @@ namespace MazeChallange
             Console.Read();
         }
 
-        static void ShowSolution(IEnumerable<ICell> solution)
+        private static void ShowSolution(IEnumerable<Cell> solution)
         {
-            swatch.Stop();
+            _swatch.Stop();
             Console.WriteLine();
-            Console.WriteLine("Completed:");
+            Console.WriteLine("{0} Completed:", _mazeSolver.GetAlgorithm());
             Console.WriteLine("=========");
             if (solution == null)
             {
                 Console.WriteLine("No solution found!");
-            }else
+            }
+            else
             {
                 solution = solution.Reverse();
                 foreach (var cell in solution)
                 {
-                    Console.Write(String.Format("({0},{1}) ", cell.RowIndex + 1, cell.ColumnIndex + 1));
+                    Console.Write("({0},{1}) ", cell.RowIndex, cell.ColumnIndex);
                 }
                 Console.WriteLine();
             }
-            Console.WriteLine("Process took {0} milliseconds.", swatch.Elapsed.Milliseconds.ToString());
+            Console.WriteLine("Process took {0} milliseconds.", _swatch.Elapsed.Milliseconds.ToString());
         }
 
 
@@ -81,7 +68,7 @@ namespace MazeChallange
         {
             Console.WriteLine("Usage");
             Console.WriteLine("=====");
-            Console.WriteLine("MazeChallange maze.txt Algorithm:[BFS,DFS]");
+            Console.WriteLine("MazeChallange maze.txt [0:BFS,1:DFS]");
             Console.WriteLine();
         }
     }
