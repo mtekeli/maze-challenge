@@ -19,12 +19,6 @@ namespace MazeChallenge
             {
                 var curNode = nodeStack.Peek();
 
-#if DEBUG
-                foreach (var n in nodeStack)
-                    Console.Write("({0},{1}) ", n.RowIndex + 1, n.ColumnIndex + 1);
-                Console.WriteLine();
-#endif
-
                 Cell curMazeNode = GetMazeNode(maze, curNode);
 
                 if (maze.IsGoal(curMazeNode)) //Uses the goal defined by the IWalledMaze as terminating point.
@@ -33,7 +27,7 @@ namespace MazeChallenge
                     solvedResultCallback(solvedPath); //Calls the callback Action and returns.
                     return;
                 }
-                bool hasUnvisitedChild = false;
+                var hasUnvisitedChild = false;
                 foreach (Cell adjMazeNode in maze.GetAdjacentCells(curMazeNode))
                 {
                     //Just use the x & Y positions from the adjNode and use the internal representation to do comparision.
