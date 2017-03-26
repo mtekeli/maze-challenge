@@ -8,12 +8,11 @@ namespace MazeChallenge
     class Program
     {
         static Stopwatch _swatch = new Stopwatch();
-        private static string _algorithmId;
         private static MazeSolver _mazeSolver;
 
         static void Main(string[] args)
         {
-            if (args.Length != 2) //input from command line
+            if (args.Length != 2) //argument check
             {
                 Console.WriteLine("Invalid number of arguments");
                 PrintUsage();
@@ -22,52 +21,54 @@ namespace MazeChallenge
 
             try
             {
-                string mazePath = args[0];
-                _algorithmId = args[1];
+                string mazePath = args[0]; // Path to the maze text file
+                string algorithmId = args[1]; // Algorithm id. 0: BFS, 1: DFS
 
-                Maze maze = new StandardMaze(mazePath);
-                var builder = new MazeSolutionBuilder();
-                _mazeSolver = builder.BuildMazeSolver(_algorithmId);
-                Action<IEnumerable<Cell>> solvedResultCallback = ShowSolution;
+                Maze maze = new StandardMaze(mazePath); // New standard maze
+                var builder = new MazeSolutionBuilder(); // MazeSolution Factory
+                _mazeSolver = builder.BuildMazeSolver(maze, algorithmId); 
 
-                _swatch.Start();
-                _mazeSolver.Solve(maze, solvedResultCallback);
+                _swatch.Start(); // start watch
+                _mazeSolver.Solve(ShowSolution); // run algorithm
             }
             catch (Exception e)
             {
                 Console.WriteLine("ERROR: {0}", e.Message);
             }
 
-            Console.Read();
+            Console.Read(); // Wait until user inputs a key
         }
 
+        /// <summary>
+        /// Prints solution result triggered by the MazeSolver.
+        /// </summary>
+        /// <param name="solution">Solution for the maze.</param>
         private static void ShowSolution(IEnumerable<Cell> solution)
         {
             _swatch.Stop();
-            Console.WriteLine();
             Console.WriteLine("{0} Completed:", _mazeSolver.GetAlgorithm());
-            Console.WriteLine("=========");
             if (solution == null)
             {
                 Console.WriteLine("No solution found!");
             }
             else
             {
-                solution = solution.Reverse();
+                solution = solution.Reverse(); // Reverse the nodes so that they start from Start -> Goal
+                // Print solution
                 foreach (var cell in solution)
                 {
-                    Console.Write("({0},{1}) ", cell.RowIndex, cell.ColumnIndex);
+                    Console.Write("({0},{1}) ", cell.RowIndex+1, cell.ColumnIndex+1);
                 }
-                Console.WriteLine();
             }
-            Console.WriteLine("Process took {0} milliseconds.", _swatch.Elapsed.Milliseconds.ToString());
+            Console.WriteLine("\nProcess took {0} milliseconds.", _swatch.Elapsed.Milliseconds.ToString());
         }
 
-
+        /// <summary>
+        /// Print usage information.
+        /// </summary>
         static void PrintUsage()
         {
-            Console.WriteLine("Usage");
-            Console.WriteLine("=====");
+            Console.WriteLine("Usage:");
             Console.WriteLine("MazeChallange maze.txt [0:BFS,1:DFS]");
             Console.WriteLine();
         }

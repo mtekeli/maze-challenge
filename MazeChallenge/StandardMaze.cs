@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace MazeChallenge
 {
@@ -13,29 +15,24 @@ namespace MazeChallenge
         public const string MazeMustHaveStartPointMessage = "Check your maze data! Maze must have a starting point!";
         public const string MazeMustHaveGoalMessage = "Check your maze data! Maze must have a goal point!";
 
+        /// <summary>
+        /// Standard maze constructor using path to maze text file
+        /// </summary>
+        /// <param name="mazeFilePath">Path to maze text file</param>
         public StandardMaze(string mazeFilePath)
         {
             this.MazeFilePath = mazeFilePath;
             InitMaze();
         }
 
+        /// <summary>
+        /// Construct the maze.
+        /// </summary>
         public override void InitMaze()
         {
-            if (!File.Exists(MazeFilePath))
-                throw new FileNotFoundException("File not found!", MazeFilePath);
+            base.InitMaze();
 
-            String line;
-            // Open the text file using a stream reader.
-            using (StreamReader sr = new StreamReader(MazeFilePath))
-            {
-                // Read the stream to a string, and write the string to the console.
-                line = sr.ReadToEnd();
-            }
-
-            Console.WriteLine("Maze input:");
-            Console.WriteLine(line);
-
-            string[] rows = line.Split(new string[] { Environment.NewLine }, StringSplitOptions.None);
+            string[] rows = MazeDataRaw.Split(new[] {Environment.NewLine}, StringSplitOptions.None);
 
             if (rows.Length < 2)
                 throw new InvalidDataException(MazeRowsLessThanTwoMessage);
@@ -89,9 +86,22 @@ namespace MazeChallenge
                 throw new InvalidDataException(MazeMustHaveGoalMessage);
             Columns = colCount;
             Rows = rows.Length;
-            Console.WriteLine("Maze read successfully...");
+            Console.WriteLine("Standard maze read successfully...");
         }
 
-    }
+        /// <summary>
+        /// Get adjacent cells of current cell in a standard maze.
+        /// </summary>
+        /// <param name="currCell">Current cell.</param>
+        /// <returns>Adjacent cells to the given cell in a standard maze.</returns>
+        public override IEnumerable<Cell> GetAdjacentCells(Cell currCell)
+        {
+            int rowPosition = currCell.RowIndex;
+            int colPosition = currCell.ColumnIndex;
 
+            var cells = (List<Cell>) base.GetAdjacentCells(currCell);
+
+            return cells.Where(cell => (cell.RowIndex != rowPosition - 1 || cell.ColumnIndex != colPosition - 1) && (cell.RowIndex != rowPosition - 1 || cell.ColumnIndex != colPosition + 1) && (cell.RowIndex != rowPosition + 1 || cell.ColumnIndex != colPosition - 1) && (cell.RowIndex != rowPosition + 1 || cell.ColumnIndex != colPosition + 1)).ToList();
+        }
+    }
 }

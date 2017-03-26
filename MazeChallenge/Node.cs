@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 
 namespace MazeChallenge
 {
+    /// <summary>
+    /// State options for the nodes
+    /// </summary>
     public enum State
     {
         NotVisited = 0,

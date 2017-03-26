@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using MazeChallenge;
 
@@ -18,55 +17,58 @@ namespace MazeChallengeTests
 
         [TestMethod]
         [ExpectedException(typeof(OverflowException))]
-        public void Maze_WhenAlgorithmParameterOverMaximum_ShouldThrowOverFlow()
+        public void Maze_WhenAlgorithmParameterBelowMinimum_ShouldThrowOverFlow()
         {
-            var solver = new MazeSolutionBuilder().BuildMazeSolver("-1");
+            Maze maze = new StandardMaze("TestCase\\Maze001.txt");
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, "-1");
         }
 
         [TestMethod]
         [ExpectedException(typeof(OverflowException))]
         public void Maze_WhenAlgorithmParameterOverMaximum_ShouldThrowOverFlow2()
         {
-            var solver = new MazeSolutionBuilder().BuildMazeSolver("65536");
+            Maze maze = new StandardMaze("TestCase\\Maze001.txt");
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, "65536");
         }
 
         [TestMethod]
         [ExpectedException(typeof(ArgumentOutOfRangeException))]
         public void Maze_WhenAlgorithmParameterOutOfRange_ShouldThrowArgumentOutOfRange()
         {
-            var solver = new MazeSolutionBuilder().BuildMazeSolver("3");
+            Maze maze = new StandardMaze("TestCase\\Maze001.txt");
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, "3");
         }
 
         [TestMethod]
         public void Maze_ShouldSolve001BFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze001.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.BFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Bfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve001DFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze001.txt");
-            var solver = new DfsMazeSolver();
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Dfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve002BFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze002.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.BFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Bfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve002DFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze002.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.DFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Dfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
@@ -125,32 +127,32 @@ namespace MazeChallengeTests
         public void Maze_ShouldSolve007BFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze007.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.BFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Bfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve007DFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze007.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.DFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Dfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve008BFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze008.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.BFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Bfs);
+            solver.Solve(Assert.IsNotNull);
         }
 
         [TestMethod]
         public void Maze_ShouldSolve008DFS()
         {
             Maze maze = new StandardMaze("TestCase\\Maze008.txt");
-            var solver = new MazeSolutionBuilder().BuildMazeSolver(Algorithm.DFS);
-            solver.Solve(maze, Assert.IsNotNull);
+            var solver = new MazeSolutionBuilder().BuildMazeSolver(maze, Algorithm.Dfs);
+            solver.Solve(Assert.IsNotNull);
         }
     }
 }

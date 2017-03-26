@@ -54,12 +54,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MazeChallenge\MazeChallenge.csproj">
-      <Project>{e4643ab5-4f68-4341-8605-430dc5b410fb}</Project>
-      <Name>MazeChallenge</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="TestCase\Maze001.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -84,6 +78,12 @@
     <Content Include="TestCase\Maze008.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\MazeChallenge\MazeChallenge.csproj">
+      <Project>{e4643ab5-4f68-4341-8605-430dc5b410fb}</Project>
+      <Name>MazeChallenge</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">

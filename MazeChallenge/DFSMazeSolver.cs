@@ -5,11 +5,14 @@ namespace MazeChallenge
 {
     public class DfsMazeSolver : MazeSolver
     {
-        public override void Solve(Maze maze, Action<IEnumerable<Cell>> solvedResultCallback)
+        public DfsMazeSolver(Maze maze) : base(maze)
         {
-            InitializeSolver(maze);
+        }
+
+        public override void Solve(Action<IEnumerable<Cell>> solvedResultCallback)
+        {
             var nodeStack = new Stack<Node>();
-            var startNode = (Node) GetNode(maze.Start); //Start of the maze as defined by IWalledMaze.
+            var startNode = (Node) GetNode(Maze.Start); //Start of the maze as defined by IWalledMaze.
             startNode.Distance = 0;
             startNode.PreviousNode = null;
             startNode.State = State.Visited;
@@ -19,18 +22,16 @@ namespace MazeChallenge
             {
                 var curNode = nodeStack.Peek();
 
-                Cell curMazeNode = GetMazeNode(maze, curNode);
-
-                if (maze.IsGoal(curMazeNode)) //Uses the goal defined by the IWalledMaze as terminating point.
+                if (Maze.IsGoal(curNode)) // Check if we have the solution
                 {
-                    IEnumerable<Cell> solvedPath = TraceSolvedPath(maze, curNode);
-                    solvedResultCallback(solvedPath); //Calls the callback Action and returns.
+                    IEnumerable<Cell> solvedPath = TraceSolvedPath(Maze, curNode);
+                    solvedResultCallback(solvedPath); //Notify the solution
                     return;
                 }
                 var hasUnvisitedChild = false;
-                foreach (Cell adjMazeNode in maze.GetAdjacentCells(curMazeNode))
+                foreach (Cell adjMazeNode in Maze.GetAdjacentCells(curNode))
                 {
-                    //Just use the x & Y positions from the adjNode and use the internal representation to do comparision.
+                    // Explore child nodes
                     var adjNode = (Node) GetNode(adjMazeNode);
                     if (adjNode.State != State.NotVisited) continue;
                     hasUnvisitedChild = true;
@@ -42,14 +43,13 @@ namespace MazeChallenge
                 }
                 if (!hasUnvisitedChild)
                     nodeStack.Pop();
-                //curNode.State = NodeState.Visited;
             }
             solvedResultCallback(null); //if it comes this far then no solution found.
         }
 
         public override Algorithm GetAlgorithm()
         {
-            return Algorithm.DFS;
+            return Algorithm.Dfs;
         }
     }
 }
