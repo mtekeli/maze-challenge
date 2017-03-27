@@ -16,7 +16,7 @@ namespace MazeChallenge
         public const string MazeMustHaveGoalMessage = "Check your maze data! Maze must have a goal point!";
 
         /// <summary>
-        /// Standard maze constructor using path to maze text file
+        /// Standard maze constructor using path to maze text file.
         /// </summary>
         /// <param name="mazeFilePath">Path to maze text file</param>
         public StandardMaze(string mazeFilePath)
@@ -37,11 +37,11 @@ namespace MazeChallenge
             if (rows.Length < 2)
                 throw new InvalidDataException(MazeRowsLessThanTwoMessage);
 
-            int colCount = rows[0].Length;
+            var colCount = rows[0].Length;
 
             Cells = new Cell[rows.Length, colCount];
 
-            for (int i = 0; i < rows.Length; i++) // iterate over the rows
+            for (var i = 0; i < rows.Length; i++) // iterate over the rows
             {
                 string row = rows[i];
 
@@ -50,7 +50,7 @@ namespace MazeChallenge
 
                 colCount = row.Length;
 
-                for (int j = 0; j < row.Length; j++) // iterate over the cols
+                for (var j = 0; j < row.Length; j++) // iterate over the cols
                 {
                     char c = row[j];
                     switch (c)
@@ -96,8 +96,8 @@ namespace MazeChallenge
         /// <returns>Adjacent cells to the given cell in a standard maze.</returns>
         public override IEnumerable<Cell> GetAdjacentCells(Cell currCell)
         {
-            int rowPosition = currCell.RowIndex;
-            int colPosition = currCell.ColumnIndex;
+            var rowPosition = currCell.RowIndex;
+            var colPosition = currCell.ColumnIndex;
 
             var cells = (List<Cell>) base.GetAdjacentCells(currCell);
 

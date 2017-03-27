@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MazeChallenge
 {
@@ -20,6 +16,7 @@ namespace MazeChallenge
         /// <summary>
         /// Create a maze solver for the given Algorithm. See Algorithm enum for the supported algorithms.
         /// </summary>
+        /// <param name="maze">Maze to get the solution for.</param>
         /// <param name="algorithm">Algorithm to use for solution.</param>
         /// <returns>Returns MazeSolver to run the solution</returns>
         public MazeSolver BuildMazeSolver(Maze maze, Algorithm algorithm)

@@ -15,6 +15,9 @@ namespace MazeChallenge
         protected string MazeFilePath;
         protected string MazeDataRaw;
 
+        /// <summary>
+        /// Read the maze from file input.
+        /// </summary>
         public virtual void InitMaze()
         {
             if (!File.Exists(MazeFilePath))
@@ -23,10 +26,11 @@ namespace MazeChallenge
             // Open the text file using a stream reader.
             using (var sr = new StreamReader(MazeFilePath))
             {
-                // Read the stream to a string, and write the string to the console.
+                // Read the stream to a string
                 MazeDataRaw = sr.ReadToEnd();
             }
 
+            // Write the string to the console.
             Console.WriteLine("Maze input:");
             Console.WriteLine(MazeDataRaw);
 
@@ -46,9 +50,9 @@ namespace MazeChallenge
                 return new List<Cell>(0);
 
             var adjacents = new List<Cell>(8);
-            for (int i = rowPosition - 1; i <= rowPosition + 1; i++)
+            for (var i = rowPosition - 1; i <= rowPosition + 1; i++)
             {
-                for (int j = colPosition - 1; j <= colPosition + 1; j++)
+                for (var j = colPosition - 1; j <= colPosition + 1; j++)
                 {
                     if (i < 0 || i >= Rows || j < 0 || j >= Columns || (i == rowPosition && j == colPosition))//eliminates out of bounds from being sent as adjacents.
                         continue;
@@ -74,8 +78,8 @@ namespace MazeChallenge
         /// <returns>List of cells.</returns>
         public IEnumerator<Cell> GetCells()
         {
-            for (int i = 0; i < Rows; i++)
-                for (int j = 0; j < Columns; j++)
+            for (var i = 0; i < Rows; i++)
+                for (var j = 0; j < Columns; j++)
                     yield return Cells[i, j];
         }
 
