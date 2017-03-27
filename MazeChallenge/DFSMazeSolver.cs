@@ -29,7 +29,7 @@ namespace MazeChallenge
                     return;
                 }
                 var hasUnvisitedChild = false;
-                foreach (Cell adjMazeNode in Maze.GetAdjacentCells(curNode))
+                foreach (var adjMazeNode in Maze.GetAdjacentCells(curNode))
                 {
                     // Explore child nodes
                     var adjNode = (Node) GetNode(adjMazeNode);

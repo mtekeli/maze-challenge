@@ -34,7 +34,7 @@ namespace MazeChallenge
                     solvedResultCallback(solvedNode); //Notify the solution
                     return;
                 }
-                foreach (Cell adjMazeNode in Maze.GetAdjacentCells(curNode))
+                foreach (var adjMazeNode in Maze.GetAdjacentCells(curNode))
                 {
                     // Explore child nodes
                     var adjNode = (Node) GetNode(adjMazeNode);
