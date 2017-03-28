@@ -25,9 +25,8 @@ At the moment two algorithms are supported.
 
 ### Tests
 16 unit tests are defined:
-- Validation: Validate user inputs and make sure that they are in the correct form of data and valid range.
--- Maze input and format validation
--- Algorithm input validation
+- Maze input and format validation: Validate user inputs and make sure that they are in the correct form of data and valid range.
+- Algorithm input validation
 - Solution: Test that different mazes can be solved both by the supported algorithms.
 
 
