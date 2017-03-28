@@ -30,7 +30,10 @@ At the moment two algorithms are supported.
 - Solution: Test that different mazes can be solved both by the supported algorithms.
 
 
-
+### Usage
+```sh
+MazeChallange maze.txt [0:BFS,1:DFS]
+```
 
 
 ### Todos
