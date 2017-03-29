@@ -100,7 +100,7 @@ namespace MazeChallenge
             var colPosition = currCell.ColumnIndex;
 
             var cells = (List<Cell>) base.GetAdjacentCells(currCell);
-
+            // Ignore cross-cells. Consider only N, E, S, W directions
             return cells.Where(cell => (cell.RowIndex != rowPosition - 1 || cell.ColumnIndex != colPosition - 1) && (cell.RowIndex != rowPosition - 1 || cell.ColumnIndex != colPosition + 1) && (cell.RowIndex != rowPosition + 1 || cell.ColumnIndex != colPosition - 1) && (cell.RowIndex != rowPosition + 1 || cell.ColumnIndex != colPosition + 1)).ToList();
         }
     }
