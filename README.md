@@ -2,7 +2,7 @@
 ### About
 This project presents an object oriented based solution for the Maze Challange problem.
 ### Problem
-Beginning from the start point, discover the route to the end point (a.k.a Goal) in a walled maze which represented by the two-dimensional matrix.
+Beginning from the start point, discover the route to the end point (a.k.a Goal) in a walled maze which is represented by the two-dimensional matrix.
 ### Solution
 External maze input format:
 ```sh
