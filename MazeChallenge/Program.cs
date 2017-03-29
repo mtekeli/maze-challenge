@@ -16,24 +16,25 @@ namespace MazeChallenge
             {
                 Console.WriteLine("Invalid number of arguments");
                 PrintUsage();
-                return;
             }
-
-            try
+            else
             {
-                string mazePath = args[0]; // Path to the maze text file
-                string algorithmId = args[1]; // Algorithm id. 0: BFS, 1: DFS
+                try
+                {
+                    string mazePath = args[0]; // Path to the maze text file
+                    string algorithmId = args[1]; // Algorithm id. 0: BFS, 1: DFS
 
-                Maze maze = new StandardMaze(mazePath); // New standard maze
-                var builder = new MazeSolutionBuilder(); // MazeSolution Factory
-                _mazeSolver = builder.BuildMazeSolver(maze, algorithmId); 
+                    Maze maze = new StandardMaze(mazePath); // New standard maze
+                    var builder = new MazeSolutionBuilder(); // MazeSolution Factory
+                    _mazeSolver = builder.BuildMazeSolver(maze, algorithmId);
 
-                _swatch.Start(); // start watch
-                _mazeSolver.Solve(ShowSolution); // run algorithm
-            }
-            catch (Exception e)
-            {
-                Console.WriteLine("ERROR: {0}", e.Message);
+                    _swatch.Start(); // start watch
+                    _mazeSolver.Solve(ShowSolution); // run algorithm
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("ERROR: {0}", e.Message);
+                }
             }
 
             Console.Read(); // Wait until user inputs a key
@@ -54,10 +55,10 @@ namespace MazeChallenge
             else
             {
                 solution = solution.Reverse(); // Reverse the nodes so that they start from Start -> Goal
-                // Print solution
+                                               // Print solution
                 foreach (var cell in solution)
                 {
-                    Console.Write("({0},{1}) ", cell.RowIndex+1, cell.ColumnIndex+1);
+                    Console.Write("({0},{1}) ", cell.RowIndex + 1, cell.ColumnIndex + 1);
                 }
             }
             Console.WriteLine("\nProcess took {0} milliseconds.", _swatch.Elapsed.Milliseconds.ToString());
@@ -70,7 +71,6 @@ namespace MazeChallenge
         {
             Console.WriteLine("Usage:");
             Console.WriteLine("MazeChallange maze.txt [0:BFS,1:DFS]");
-            Console.WriteLine();
         }
     }
 }
