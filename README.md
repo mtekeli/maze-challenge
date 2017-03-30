@@ -39,6 +39,7 @@ MazeChallange maze.txt [0:BFS,1:DFS]
 ### Todos
 
  - Recognize maze type from extension (e.g. maze.sm for standard maze)
+ - Runtime constraints (e.g. stack overflow when maze is too big)
 
 License
 ----
