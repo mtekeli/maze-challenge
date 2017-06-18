@@ -1,12 +1,11 @@
 ﻿
 
+using System;
+
 namespace MazeChallenge
 {
-    public abstract class Cell
+    public abstract class Cell : ICell
     {
-        public int RowIndex { get; set; }
-        public int ColumnIndex { get; set; }
-
         /// <summary>
         /// Constructor for a maze cell.
         /// </summary>
@@ -17,6 +16,9 @@ namespace MazeChallenge
             this.RowIndex = rowIndex;
             this.ColumnIndex = columnIndex;
         }
+
+        public int RowIndex { get; set; }
+        public int ColumnIndex { get; set; }
 
         /// <summary>
         /// Compares given cell with this cell.
@@ -38,10 +40,6 @@ namespace MazeChallenge
             return base.GetHashCode()+1;
         }
 
-        /// <summary>
-        /// Returns whether this cell is blocked or not.
-        /// </summary>
-        /// <returns>True if the cell is blocked, false otherwise.</returns>
         public abstract bool IsOccupied();
     }
 }

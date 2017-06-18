@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MazeChallenge
 {
-    public abstract class MazeSolver
+    public abstract class MazeSolver : IMazeSolver
     {
         protected MazeSolver(Maze maze)
         {
@@ -21,18 +21,8 @@ namespace MazeChallenge
         /// </summary>
         protected Node[,] Nodes { get; set; }
 
-        /// <summary>
-        /// Run the solver algorithm.
-        /// </summary>
-        /// <param name="solvedResultCallback">Callback function to be notified when algorithm is finished.
-        /// Note that this function returns null if no solution is found.</param>
-        public abstract void Solve(Action<IEnumerable<Cell>> solvedResultCallback);
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <returns></returns>
         public abstract Algorithm GetAlgorithm();
+        public abstract void Solve(Action<IEnumerable<Cell>> solvedResultCallback);
 
         /// <summary>
         /// Get corresponding node by the given cell.

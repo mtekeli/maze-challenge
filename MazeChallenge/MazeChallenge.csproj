@@ -45,6 +45,8 @@
     <Compile Include="BFSMazeSolver.cs" />
     <Compile Include="Cell.cs" />
     <Compile Include="DFSMazeSolver.cs" />
+    <Compile Include="ICell.cs" />
+    <Compile Include="IMazeSolver.cs" />
     <Compile Include="StandardMaze.cs" />
     <Compile Include="MazeSolver.cs" />
     <Compile Include="Maze.cs" />

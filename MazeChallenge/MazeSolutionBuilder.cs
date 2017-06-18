@@ -19,7 +19,7 @@ namespace MazeChallenge
         /// <param name="maze">Maze to get the solution for.</param>
         /// <param name="algorithm">Algorithm to use for solution.</param>
         /// <returns>Returns MazeSolver to run the solution</returns>
-        public MazeSolver BuildMazeSolver(Maze maze, Algorithm algorithm)
+        public IMazeSolver BuildMazeSolver(Maze maze, Algorithm algorithm)
         {
             MazeSolver mazeSolver = null;
 
@@ -44,7 +44,7 @@ namespace MazeChallenge
         /// <param name="maze">Maze to get the solution for.</param>
         /// <param name="algorithmId">Algorithm id to use for solution.</param>
         /// <returns>Returns MazeSolver to run the solution</returns>
-        public MazeSolver BuildMazeSolver(Maze maze, string algorithmId)
+        public IMazeSolver BuildMazeSolver(Maze maze, string algorithmId)
         {
             var alg = (Algorithm) ushort.Parse(algorithmId);
             return BuildMazeSolver(maze, alg);

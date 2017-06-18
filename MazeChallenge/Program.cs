@@ -8,7 +8,7 @@ namespace MazeChallenge
     class Program
     {
         static Stopwatch _swatch = new Stopwatch();
-        private static MazeSolver _mazeSolver;
+        private static IMazeSolver _mazeSolver;
 
         static void Main(string[] args)
         {
